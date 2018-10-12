@@ -1,4 +1,3 @@
-# Time-stamp: < Makefile (2017-01-28 08:51) >
 BUILD=build
 VOLUME=$(shell echo "$$SSH_AUTH_SOCK:/ssh-agent")
 
@@ -8,13 +7,13 @@ SSH_CMD=$$SSH_CMD
 endif
 
 # optional argument NAME
-NAME=docker-tunnel
+NAME=ajando/tunnel
 ifdef $$NAME
 NAME=$$NAME
 endif
 
 # optional argument TAG
-TAG=autossh
+TAG=latest
 ifdef $$TAG
 TAG=$$TAG
 endif
@@ -24,17 +23,16 @@ CONTAINER_BUILD_MARKER=$(BUILD)/container-$(NAME)
 IMAGE_BUILD_MARKER=$(BUILD)/image-$(NAME)-$(TAG)
 
 .PHONY: all clean clean-container clean-image prepare image container start
-
 all:
 	@echo "legal targets: 'clean', 'clean-container', clean-image', 'build-image', 'build-container', 'start'"
 	@echo ""
-	@echo "    required argument to Makefile is 'SSH_CMD', ie:"
+	@echo "required argument to Makefile is 'SSH_CMD', ie:"
 	@echo ""
-	@echo '        make SSH_CMD="*:6379:localhost:6379 redis@172.17.0.1" build-container'
+	@echo 'make SSH_CMD="*:6379:localhost:6379 redis@172.17.0.1" build-container'
 	@echo ""
-	@echo "    optional arguments include 'NAME' and 'TAG', ie:"
+	@echo "optional arguments include 'NAME' and 'TAG', ie:"
 	@echo ""
-	@echo '        make NAME=redis-ssh-tunnel TAG=redis-project SSH_CMD="*:6379:localhost:6379 redis@172.17.0.1" build-container'
+	@echo 'make NAME=redis-ssh-tunnel TAG=redis-project SSH_CMD="*:6379:localhost:6379 redis@172.17.0.1" build-container'
 
 clean: clean-container clean-image
 	rm -rf $(BUILD)
